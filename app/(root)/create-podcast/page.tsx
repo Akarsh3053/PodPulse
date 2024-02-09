@@ -4,15 +4,16 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
+import GeneratePodcast from "@/components/GeneratePodcast"
+import GenerateThumbnail from "@/components/GenerateThumbnail"
 import { Button } from "@/components/ui/button"
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
-    FormMessage,
+    FormMessage
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -23,16 +24,15 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { cn } from "@/lib/utils"
-import { useState } from "react"
 import { Textarea } from "@/components/ui/textarea"
-import GeneratePodcast from "@/components/GeneratePodcast"
-import GenerateThumbnail from "@/components/GenerateThumbnail"
-import { Loader } from "lucide-react"
-import { Id } from "@/convex/_generated/dataModel"
 import { useToast } from "@/components/ui/use-toast"
-import { useMutation } from "convex/react"
 import { api } from "@/convex/_generated/api"
+import { Id } from "@/convex/_generated/dataModel"
+import { cn } from "@/lib/utils"
+import { useMutation } from "convex/react"
+import { Loader } from "lucide-react"
+import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 const voiceCategories = ['alloy', 'shimmer', 'nova', 'echo', 'fable', 'onyx'];
 const { toast } = useToast()
@@ -48,7 +48,7 @@ const formSchema = z.object({
 })
 
 const CreatePodcast = () => {
-
+    const router = useRouter()
     const [imageUrl, setImageUrl] = useState('')
     const [imagePrompt, setImagePrompt] = useState('')
     const [imageStorageId, setImageStorageId] = useState<Id<"_storage"> | null>(null)
@@ -80,8 +80,7 @@ const CreatePodcast = () => {
                 setIsSubmitting(false)
                 throw new Error(`Please genrate audio and iamge`)
             }
-
-            await createPodcast({
+            const podcast = await createPodcast({
                 podcastTitle: data.podcastTitle,
                 podcastDescription: data.podcastDescription,
                 imageUrl,
@@ -94,6 +93,9 @@ const CreatePodcast = () => {
                 audioStorageId: audioStorageId!,
                 imageStorageId: imageStorageId!,
             })
+            toast({ title: "Podcast created successfully" })
+            setIsSubmitting(false);
+            router.push('/')
         } catch (error) {
             console.error(error)
             toast({ title: "Error creating podcast!!", variant: 'destructive' })
