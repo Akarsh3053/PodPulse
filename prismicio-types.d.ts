@@ -81,16 +81,6 @@ export type PageDocument<Lang extends string = string> =
  */
 export interface SettingsDocumentDataNavigationItem {
   /**
-   * Link field in *Settings → Navigation*
-   *
-   * - **Field Type**: Link to Media
-   * - **Placeholder**: *None*
-   * - **API ID Path**: settings.navigation[].link
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
-   */
-  link: prismic.LinkToMediaField;
-
-  /**
    * Label field in *Settings → Navigation*
    *
    * - **Field Type**: Text
@@ -99,6 +89,16 @@ export interface SettingsDocumentDataNavigationItem {
    * - **Documentation**: https://prismic.io/docs/field#key-text
    */
   label: prismic.KeyTextField;
+
+  /**
+   * Link field in *Settings → Navigation*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.navigation[].link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  link: prismic.LinkField;
 
   /**
    * CTA Button field in *Settings → Navigation*
