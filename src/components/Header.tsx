@@ -1,13 +1,13 @@
-import Link from "next/link";
-import WordMark from "@/components/WordMark";
+import NavBar from "./NavBar";
+import { createClient } from "@/prismicio";
 
-export default function Header() {
+export default async function Header() {
+    const client = createClient();
+    const settings = await client.getSingle("settings");
+
     return (
-        <div>
-            <Link href={"/"}>
-                <WordMark />
-                <span className="sr-only">Glisten.ai Homepage</span>
-            </Link>
-        </div>
+        <>
+            <NavBar />
+        </>
     )
 }
