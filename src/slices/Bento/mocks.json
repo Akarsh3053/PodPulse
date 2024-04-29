@@ -9,8 +9,16 @@
 					{
 						"type": "heading2",
 						"content": {
-							"text": "Income"
-						}
+							"text": "The new\nGold Standard.",
+							"spans": [
+								{
+									"type": "em",
+									"start": 8,
+									"end": 21
+								}
+							]
+						},
+						"direction": "ltr"
 					}
 				]
 			},
@@ -20,8 +28,10 @@
 					{
 						"type": "paragraph",
 						"content": {
-							"text": "Non proident velit non Lorem dolore laboris non consectetur culpa nulla ea aute proident. Qui magna dolor aute ut nulla ad officia irure proident voluptate irure esse dolore pariatur."
-						}
+							"text": "Introducing a new way of building components and layouts that leaves everything else in the dust.",
+							"spans": []
+						},
+						"direction": "ltr"
 					}
 				]
 			}
