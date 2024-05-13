@@ -1,3 +1,5 @@
 # To-do for glisten project 
-- Add CMS
-- Add backup auths 
+- [x] Add CMS
+- [x] Add backup auths
+- [ ] GSAP for slices
+- Add data for CMS  
