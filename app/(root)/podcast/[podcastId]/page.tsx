@@ -1,8 +1,8 @@
 import React from 'react'
 
-const PodcastDetails = () => {
+const PodcastDetails = ({ params }: { params: { podcastId: string } }) => {
     return (
-        <div>PodcastDetails</div>
+        <p className='text-white-1'>PodcastDetails for {params.podcastId}</p>
     )
 }
 
