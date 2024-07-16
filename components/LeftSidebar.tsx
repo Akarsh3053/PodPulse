@@ -9,11 +9,13 @@ const LeftSidebar = () => {
                     <Image
                         src="/icons/logo.svg"
                         alt="Logo"
-                        width={23}
+                        width={25}
                         height={27}
                     />
                     <h1 className="text-24 font-extrabold text-white-1 max-lg:hidden ">PodPulse</h1>
                 </Link>
+
+                { }
             </nav>
         </section>
     )
