@@ -1,3 +1,4 @@
+import { sidebarLinks } from "@/constants"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -15,7 +16,11 @@ const LeftSidebar = () => {
                     <h1 className="text-24 font-extrabold text-white-1 max-lg:hidden ">PodPulse</h1>
                 </Link>
 
-                { }
+                {sidebarLinks.map(({ route, label }) => {
+                    return <Link href={route}>
+                        {label}
+                    </Link>
+                })}
             </nav>
         </section>
     )
