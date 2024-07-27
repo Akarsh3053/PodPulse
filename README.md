@@ -1,3 +1,0 @@
-# PodPulse
-
-- AI + Web
