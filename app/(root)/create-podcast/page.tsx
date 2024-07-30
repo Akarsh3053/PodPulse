@@ -29,25 +29,40 @@ import { Textarea } from "@/components/ui/textarea"
 import GeneratePodcast from "@/components/GeneratePodcast"
 import GenerateThumbnail from "@/components/GenerateThumbnail"
 import { Loader } from "lucide-react"
+import { Id } from "@/convex/_generated/dataModel"
 
 const voiceCategories = ['alloy', 'shimmer', 'nova', 'echo', 'fable', 'onyx'];
 
 
 const formSchema = z.object({
-    username: z.string().min(2, {
-        message: "Username must be at least 2 characters.",
+    podcastTitle: z.string().min(2, {
+        message: "Title must be at least 2 characters.",
+    }),
+    podcastDescription: z.string().min(2, {
+        message: "Description must be at least 2 characters.",
     }),
 })
 
 const CreatePodcast = () => {
 
+    const [imageUrl, setImageUrl] = useState('')
+    const [imagePromt, setImagePromt] = useState('')
+    const [imageStorageId, setImageStorageId] = useState<Id<"_storage"> | null>(null)
+
+    const [audioUrl, setAudioUrl] = useState('')
+    const [audioDuration, setAudioDuration] = useState(0)
+    const [audioStorageId, setAudioStorageId] = useState<Id<"_storage"> | null>(null)
+
+    const [voicePrompt, setVoicePrompt] = useState('')
     const [voiceType, setVoiceType] = useState<string | null>(null)
+
     const [isSubmitting, setIsSubmitting] = useState(false)
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            username: "",
+            podcastTitle: "",
+            podcastDescription: "",
         },
     })
 
