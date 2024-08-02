@@ -5,17 +5,40 @@ import { Loader } from "lucide-react"
 import { Button } from "./ui/button"
 import { useState } from "react"
 
-const GeneratePodcast = ({
-    setAudioStorageId,
-    setAudio,
-    voiceType,
-    audio,
-    voicePrompt,
-    setVoicePrompt,
-    setAudioDuration,
-}: GeneratePodcastProps) => {
 
-    const [isGenerating, setIsGenerating] = useState(false)
+const useGeneratePodcast = ({ setAudio, voiceType, voicePrompt, setAudioStorageId }: GeneratePodcastProps) => {
+    const [isGenerating, setIsGenerating] = useState(false);
+
+    const generatePodcast = async () => {
+        setIsGenerating(true);
+        setAudio('');
+
+
+        if (!voicePrompt) {
+            // todo: toaster
+            return setIsGenerating(false);
+        }
+
+        try {
+            // Logic goes here
+        } catch (error) {
+            console.log('Error generating podcast', error);
+            // todo: error message 
+            setIsGenerating(false);
+        }
+
+    }
+
+
+    return {
+        isGenerating,
+        generatePodcast
+    }
+}
+
+const GeneratePodcast = (props: GeneratePodcastProps) => {
+
+    const { isGenerating, generatePodcast } = useGeneratePodcast(props);
 
 
     return (
@@ -26,9 +49,9 @@ const GeneratePodcast = ({
                 </Label>
                 <Textarea
                     rows={5}
-                    value={voicePrompt}
+                    value={props.voicePrompt}
                     placeholder="Provide text to generate audio"
-                    onChange={(e) => setVoicePrompt(e.target.value)}
+                    onChange={(e) => props.setVoicePrompt(e.target.value)}
                     className="input-class font-light focus-visible:ring-offset-orange-1"
                 />
             </div>
@@ -42,13 +65,13 @@ const GeneratePodcast = ({
                     ) : ('Generate')}
                 </Button>
             </div>
-            {audio && (
+            {props.audio && (
                 <audio
                     controls
-                    src={audio}
+                    src={props.audio}
                     autoPlay
                     className="mt-5"
-                    onLoadedMetadata={(e) => setAudioDuration(e.currentTarget.duration)}
+                    onLoadedMetadata={(e) => props.setAudioDuration(e.currentTarget.duration)}
                 />
             )}
         </div>
