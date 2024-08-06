@@ -8,12 +8,13 @@ import { useAction, useMutation } from "convex/react"
 import { api } from "@/convex/_generated/api"
 import { v4 as uuidv4 } from "uuid"
 import { generateUploadUrl } from "@/convex/files"
-
+import { useToast } from "@/components/ui/use-toast"
 import { useUploadFiles } from "@xixixao/uploadstuff/react"
 
 
 const useGeneratePodcast = ({ setAudio, voiceType, voicePrompt, setAudioStorageId }: GeneratePodcastProps) => {
     const [isGenerating, setIsGenerating] = useState(false);
+    const { toast } = useToast()
 
     const generateUploadUrl = useMutation(api.files.generateUploadUrl)
     const { startUpload } = useUploadFiles(generateUploadUrl)
@@ -28,7 +29,7 @@ const useGeneratePodcast = ({ setAudio, voiceType, voicePrompt, setAudioStorageI
 
 
         if (!voicePrompt) {
-            // todo: toaster
+            toast({ title: "Please provide a voice type." })
             return setIsGenerating(false);
         }
 
@@ -51,10 +52,10 @@ const useGeneratePodcast = ({ setAudio, voiceType, voicePrompt, setAudioStorageI
             const audioUrl = await getAudioUrl({ storageId });
             setAudio(audioUrl!);
             setIsGenerating(false);
-            // TODO: show sucess
+            toast({ title: "Podcast generated successfully!!" })
         } catch (error) {
             console.log('Error generating podcast', error);
-            // todo: error message 
+            toast({ title: "Error generatingpodcast!!", variant: 'destructive' })
             setIsGenerating(false);
         }
 
@@ -87,10 +88,10 @@ const GeneratePodcast = (props: GeneratePodcastProps) => {
                 />
             </div>
             <div className="mt-5 w-full max-w-[200px]">
-                <Button type="submit" className="text-16 bg-orange-1 py-4 font-bold text-white-1">
+                <Button type="submit" className="text-16 bg-orange-1 py-4 font-bold text-white-1" onClick={generatePodcast}>
                     {isGenerating ? (
                         <>
-                            Submitting
+                            Generating
                             <Loader size={20} className="animate-spin ml-2" />
                         </>
                     ) : ('Generate')}
