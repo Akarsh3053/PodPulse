@@ -1,2 +1,2 @@
 # PodPulse
-Next-gen AI powered platform
+Next-gen AI powered PodCasts platform.
