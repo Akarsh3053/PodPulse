@@ -1,14 +1,16 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { Button } from "./ui/button"
 import { cn } from "@/lib/utils";
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 import { Loader } from "lucide-react";
 import { GenerateThumbnailProps } from "@/types";
+import { Input } from "./ui/input";
 
 const GenerateThumbnail = ({ setImage, setImageStorageId, image, imagePrompt, setImagePrompt }: GenerateThumbnailProps) => {
     const [isAiTHumbnail, setIsAiTHumbnail] = useState(false);
     const [isGenerating, setIsGenerating] = useState(false);
+    const imageRef = useRef<HTMLInputElement>(null);
 
     const generateImage = async () => { }
 
@@ -37,10 +39,10 @@ const GenerateThumbnail = ({ setImage, setImageStorageId, image, imagePrompt, se
                 </Button>
             </div>
             {isAiTHumbnail ? (
-                <div>
+                <div className="flex flex-col gap-5 mt-5">
                     <div className="flex flex-col gap-2.5">
                         <Label className="text-16 font-bold text-white-1">
-                            AI prompt to generate Podcast thumbnail
+                            AI prompt to generate Thumbnail
                         </Label>
                         <Textarea
                             rows={5}
@@ -50,7 +52,7 @@ const GenerateThumbnail = ({ setImage, setImageStorageId, image, imagePrompt, se
                             className="input-class font-light focus-visible:ring-offset-orange-1"
                         />
                     </div>
-                    <div className="mt-5 w-full max-w-[200px]">
+                    <div className="w-full max-w-[200px]">
                         <Button type="submit" className="text-16 bg-orange-1 py-4 font-bold text-white-1" onClick={generateImage}>
                             {isGenerating ? (
                                 <>
@@ -62,8 +64,12 @@ const GenerateThumbnail = ({ setImage, setImageStorageId, image, imagePrompt, se
                     </div>
                 </div>
             ) : (
-                <div>
-                    Hello
+                <div className="image_div" onClick={() => imageRef?.current?.click()}>
+                    <Input
+                        type="file"
+                        className="hidden"
+                        ref={imageRef} />
+
                 </div>
             )}
         </>
