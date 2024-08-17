@@ -70,6 +70,7 @@ const GenerateThumbnail = ({ setImage, setImageStorageId, image, imagePrompt, se
                         type="file"
                         className="hidden"
                         ref={imageRef}
+                    // onChange={(e)=> uploadImage(e)}
                     />
                     {!isImageLoading ? (
                         <Image
@@ -79,7 +80,7 @@ const GenerateThumbnail = ({ setImage, setImageStorageId, image, imagePrompt, se
                             height={40}
                         />
                     ) : (
-                        <div className="text-16 text-center font-medium text-white-1">
+                        <div className="text-16 flex-center font-medium text-white-1">
                             Uploading
                             <Loader size={20} className="animate-spin ml-2" />
                         </div>
@@ -88,6 +89,17 @@ const GenerateThumbnail = ({ setImage, setImageStorageId, image, imagePrompt, se
                         <h2 className="text-12 font-bold text-orange-1">Click to upload</h2>
                         <p className="text-12 font-normal text-gray-1">SVG, PNG, JPG or GIF (max, 1080x1080px)</p>
                     </div>
+                </div>
+            )}
+            {image && (
+                <div className="flex-center w-full">
+                    <Image
+                        className="mt-5"
+                        src={image}
+                        width={200}
+                        height={200}
+                        alt="Thumbnail"
+                    />
                 </div>
             )}
         </>
