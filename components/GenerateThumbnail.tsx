@@ -6,10 +6,11 @@ import { Textarea } from "./ui/textarea";
 import { Loader } from "lucide-react";
 import { GenerateThumbnailProps } from "@/types";
 import { Input } from "./ui/input";
+import Image from "next/image";
 
 const GenerateThumbnail = ({ setImage, setImageStorageId, image, imagePrompt, setImagePrompt }: GenerateThumbnailProps) => {
     const [isAiTHumbnail, setIsAiTHumbnail] = useState(false);
-    const [isGenerating, setIsGenerating] = useState(false);
+    const [isImageLoading, setImageLoading] = useState(false);
     const imageRef = useRef<HTMLInputElement>(null);
 
     const generateImage = async () => { }
@@ -54,7 +55,7 @@ const GenerateThumbnail = ({ setImage, setImageStorageId, image, imagePrompt, se
                     </div>
                     <div className="w-full max-w-[200px]">
                         <Button type="submit" className="text-16 bg-orange-1 py-4 font-bold text-white-1" onClick={generateImage}>
-                            {isGenerating ? (
+                            {isImageLoading ? (
                                 <>
                                     Generating
                                     <Loader size={20} className="animate-spin ml-2" />
@@ -68,7 +69,21 @@ const GenerateThumbnail = ({ setImage, setImageStorageId, image, imagePrompt, se
                     <Input
                         type="file"
                         className="hidden"
-                        ref={imageRef} />
+                        ref={imageRef}
+                    />
+                    {!isImageLoading ? (
+                        <Image
+                            src="/icons/upload-image.svg"
+                            alt="upload icon"
+                            width={40}
+                            height={40}
+                        />
+                    ) : (
+                        <div>
+                            Uploading
+                            <Loader size={20} className="animate-spin ml-2" />
+                        </div>
+                    )}
 
                 </div>
             )}
