@@ -2,7 +2,7 @@ import { api } from "@/convex/_generated/api";
 import { cn } from "@/lib/utils";
 import { GenerateThumbnailProps } from "@/types";
 import { useUploadFiles } from "@xixixao/uploadstuff/react";
-import { useMutation } from "convex/react";
+import { useAction, useMutation } from "convex/react";
 import { Loader } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
@@ -23,6 +23,7 @@ const GenerateThumbnail = ({ setImage, setImageStorageId, image, imagePrompt, se
     const { startUpload } = useUploadFiles(generateUploadUrl)
 
     const getImageUrl = useMutation(api.podcasts.getUrl)
+    const handleGenerateThumbnail = useAction(api.openai.generateThumbnailAction)
 
     const handleImage = async (blob: Blob, fileName: string) => {
         setIsImageLoading(true);
