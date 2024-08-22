@@ -46,7 +46,21 @@ const GenerateThumbnail = ({ setImage, setImageStorageId, image, imagePrompt, se
         }
     }
     const generateImage = async () => { }
-    const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => { }
+    const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        try {
+            const files = e.target.files;
+            if (!files) return;
+            const file = files[0];
+            const blob = await file.arrayBuffer()
+                .then((ab) => new Blob([ab]));
+
+            handleImage(blob, file.name);
+        } catch (error) {
+            console.log(error)
+            toast({ title: "Error uploading image!!", variant: 'destructive' })
+        }
+    }
 
     return (
         <>
