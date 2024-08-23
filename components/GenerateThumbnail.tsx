@@ -6,6 +6,7 @@ import { useAction, useMutation } from "convex/react";
 import { Loader } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -46,7 +47,16 @@ const GenerateThumbnail = ({ setImage, setImageStorageId, image, imagePrompt, se
             toast({ title: "Error generating thumbnail!!", variant: 'destructive' })
         }
     }
-    const generateImage = async () => { }
+    const generateImage = async () => {
+        try {
+            const response = await handleGenerateThumbnail({ prompt: imagePrompt });
+            const blob = new Blob([response], { type: 'image/png' });
+            handleImage(blob, `thumbnail-${uuidv4()}`);
+        } catch (error) {
+            console.log(error)
+            toast({ title: "Error generating AI thumbnail!!", variant: 'destructive' })
+        }
+    }
     const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         try {
