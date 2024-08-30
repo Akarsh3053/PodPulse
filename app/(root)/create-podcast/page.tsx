@@ -30,8 +30,10 @@ import GeneratePodcast from "@/components/GeneratePodcast"
 import GenerateThumbnail from "@/components/GenerateThumbnail"
 import { Loader } from "lucide-react"
 import { Id } from "@/convex/_generated/dataModel"
+import { useToast } from "@/components/ui/use-toast"
 
 const voiceCategories = ['alloy', 'shimmer', 'nova', 'echo', 'fable', 'onyx'];
+const { toast } = useToast()
 
 
 const formSchema = z.object({
@@ -67,8 +69,18 @@ const CreatePodcast = () => {
     })
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        // Do something with the form values.
-        console.log(values)
+        try {
+            setIsSubmitting(true);
+            if (!audioUrl || !imageUrl || !voiceType) {
+                toast({ title: "Please genrate audio and iamge!", variant: 'destructive' })
+                setIsSubmitting(false)
+                throw new Error(`Please genrate audio and iamge`)
+            }
+        } catch (error) {
+            console.error(error)
+            toast({ title: "Error creating podcast!!", variant: 'destructive' })
+            setIsSubmitting(false)
+        }
     }
 
 
