@@ -31,6 +31,8 @@ import GenerateThumbnail from "@/components/GenerateThumbnail"
 import { Loader } from "lucide-react"
 import { Id } from "@/convex/_generated/dataModel"
 import { useToast } from "@/components/ui/use-toast"
+import { useMutation } from "convex/react"
+import { api } from "@/convex/_generated/api"
 
 const voiceCategories = ['alloy', 'shimmer', 'nova', 'echo', 'fable', 'onyx'];
 const { toast } = useToast()
@@ -60,6 +62,8 @@ const CreatePodcast = () => {
 
     const [isSubmitting, setIsSubmitting] = useState(false)
 
+    const createPodcast = useMutation(api.podcasts.createPodcast)
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -68,7 +72,7 @@ const CreatePodcast = () => {
         },
     })
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
+    async function onSubmit(data: z.infer<typeof formSchema>) {
         try {
             setIsSubmitting(true);
             if (!audioUrl || !imageUrl || !voiceType) {
@@ -76,6 +80,20 @@ const CreatePodcast = () => {
                 setIsSubmitting(false)
                 throw new Error(`Please genrate audio and iamge`)
             }
+
+            await createPodcast({
+                podcastTitle: data.podcastTitle,
+                podcastDescription: data.podcastDescription,
+                imageUrl,
+                audioUrl,
+                voiceType,
+                imagePromt,
+                voicePrompt,
+                views: 0,
+                audioDuration,
+                audioStorageId: audioStorageId!,
+                imageStorageId: imageStorageId!,
+            })
         } catch (error) {
             console.error(error)
             toast({ title: "Error creating podcast!!", variant: 'destructive' })
