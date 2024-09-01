@@ -50,7 +50,7 @@ const formSchema = z.object({
 const CreatePodcast = () => {
 
     const [imageUrl, setImageUrl] = useState('')
-    const [imagePromt, setImagePromt] = useState('')
+    const [imagePrompt, setImagePrompt] = useState('')
     const [imageStorageId, setImageStorageId] = useState<Id<"_storage"> | null>(null)
 
     const [audioUrl, setAudioUrl] = useState('')
@@ -87,7 +87,7 @@ const CreatePodcast = () => {
                 imageUrl,
                 audioUrl,
                 voiceType,
-                imagePromt,
+                imagePrompt,
                 voicePrompt,
                 views: 0,
                 audioDuration,
@@ -179,8 +179,8 @@ const CreatePodcast = () => {
                             setImage={setImageUrl}
                             setImageStorageId={setImageStorageId}
                             image={imageUrl}
-                            imagePrompt={imagePromt}
-                            setImagePrompt={setImagePromt}
+                            imagePrompt={imagePrompt}
+                            setImagePrompt={setImagePrompt}
                         />
 
                         <div className="mt-10 w-full">
