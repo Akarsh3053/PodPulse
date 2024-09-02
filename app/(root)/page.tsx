@@ -6,6 +6,7 @@ import PodcastCard from "@/components/PodcastCard"
 
 
 const Home = () => {
+  // Fetch trending podcasts from the API using the `useQuery` hook
   const trendingPodcasts = useQuery(api.podcasts.getTrendingPodcasts);
 
   return (
