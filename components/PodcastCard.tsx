@@ -1,12 +1,12 @@
+import { PodcastCardProps } from '@/types'
 import Image from 'next/image'
 import React from 'react'
 
-const PodcastCard = ({ title, description, podcastId, imgUrl }: {
-    title: string,
-    imgUrl: string
-    podcastId: number,
-    description: string,
-}) => {
+const PodcastCard = ({ title, description, podcastId, imgUrl }: PodcastCardProps) => {
+
+    const handleViews = () => {
+        // TODO: Implement view count tracking
+    }
     return (
         <div className='cursor-pointer'>
             <figure className='flex flex-col gap-2'>

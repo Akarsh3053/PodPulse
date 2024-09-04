@@ -1,3 +1,3 @@
 # PodPulse
 
-NextGen AI PodCasts App
+NextGen AI PodCasts App built using OpenAI APIs and Convex
