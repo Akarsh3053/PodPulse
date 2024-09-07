@@ -29,7 +29,7 @@ const RightSidebar = () => {
           <UserButton />
           <div className="flex w-full items-center justify-between">
             <h1 className="text-16 truncate font-semibold text-white-1">{user?.firstName} {user?.lastName}</h1>
-            <Image 
+            <Image
               src="/icons/right-arrow.svg"
               alt="arrow"
               width={24}
@@ -40,10 +40,10 @@ const RightSidebar = () => {
       </SignedIn>
       <section>
         <Header headerTitle="Fans Like You" />
-        <Carousel fansLikeDetail={topPodcasters!}/>
+        <Carousel fansLikeDetail={topPodcasters!} />
       </section>
       <section className="flex flex-col gap-8 pt-12">
-        <Header headerTitle="Top Podcastrs" />
+        <Header headerTitle="Top PodPulses" />
         <div className="flex flex-col gap-6">
           {topPodcasters?.slice(0, 3).map((podcaster) => (
             <div key={podcaster._id} className="flex cursor-pointer justify-between" onClick={() => router.push(`/profile/${podcaster.clerkId}`)}>
@@ -59,7 +59,7 @@ const RightSidebar = () => {
               </figure>
               <div className="flex items-center">
                 <p className="text-12 font-normal text-white-1">{podcaster.totalPodcasts} podcasts</p>
-              </div> 
+              </div>
             </div>
           ))}
         </div>

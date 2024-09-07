@@ -7,7 +7,7 @@ import AudioProvider from "@/providers/AudioProvider";
 const manrope = Manrope({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Podcastr",
+  title: "PodPulse",
   description: "Generate your podcasts using AI",
   icons: {
     icon: '/icons/logo.svg'
@@ -24,7 +24,7 @@ export default function RootLayout({
       <html lang="en">
         <AudioProvider>
           <body className={`${manrope.className}`}>
-              {children}
+            {children}
           </body>
         </AudioProvider>
       </html>
